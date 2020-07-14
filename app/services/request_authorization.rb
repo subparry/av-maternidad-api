@@ -11,7 +11,8 @@ class RequestAuthorization
   def valid?
     return false unless token? 
     @decoded = JsonWebToken.instance.decode(@headers['Authorization'])
-    @decoded && @decoded[:admin_id].present?
+    return false if @decoded.nil?
+    @decoded[:admin_id].present?
   end
 
   def token?

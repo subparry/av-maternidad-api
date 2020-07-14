@@ -9,6 +9,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def check_token
+    authorizer = RequestAuthorization.new({'Authorization' => params[:token]})
+    render json: {valid: authorizer.valid?}
+  end
+
   private
 
   def session_params
